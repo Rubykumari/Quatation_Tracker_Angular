@@ -27,3 +27,15 @@ export interface IApiResponse{
     result: true;
     data: any;
 }
+export interface IUserModel {
+    userId: number
+    userName: string
+    emailId: string
+    fullName: string
+    role: string
+    createdDate: string
+    password: string
+    projectName: string
+    refreshToken: any
+    refreshTokenExpiryTime: any
+  }

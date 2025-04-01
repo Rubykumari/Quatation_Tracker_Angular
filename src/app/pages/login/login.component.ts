@@ -1,8 +1,9 @@
 import { NgStyle } from '@angular/common';
 import { Component, inject, Signal, signal } from '@angular/core';
 import { UserService } from '../../service/user.service';
-import { IApiResponse, Register } from '../../model/User';
+import { IApiResponse, Login, Register } from '../../model/User';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,9 @@ import { FormsModule } from '@angular/forms';
 export class LoginComponent {
    isLoginFormVisible = signal<boolean>(true);
    userServ = inject(UserService);
+   router = inject(Router);
    registerObj:Register = new Register();
+   loginObj:Login = new Login();
    toggleForm() {
     this.isLoginFormVisible.set(!this.isLoginFormVisible());
    }
@@ -33,6 +36,12 @@ export class LoginComponent {
     })
    }
    onLogin(){
-    
+    return this.userServ.onLoginSrv(this.loginObj).subscribe((res:IApiResponse)=>{
+    if(res.result){
+      sessionStorage.setItem('RfqUser', JSON.stringify(res.data));
+      this.userServ.loggedUser();
+      this.router.navigateByUrl('/home');
+    }
+    })
    }
 }

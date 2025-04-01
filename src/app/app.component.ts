@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
+import { UserService } from './service/user.service';
 
 @Component({
   selector: 'app-root',
@@ -8,5 +9,12 @@ import { RouterLink, RouterOutlet } from '@angular/router';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title = 'quatation_tracker';
+  userSrv = inject(UserService)
+
+  constructor() {}
+  
+  onLogout(){
+    sessionStorage.removeItem('RfqUser');
+    this.userSrv.loggedUserData = undefined;
+  }
 }
