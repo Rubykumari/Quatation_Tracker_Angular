@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { UserService } from './service/user.service';
 
 @Component({
@@ -10,9 +10,9 @@ import { UserService } from './service/user.service';
 })
 export class AppComponent {
   userSrv = inject(UserService)
-
+  router = inject(Router);
   constructor() {}
-  
+
   onLogout(){
     sessionStorage.removeItem('RfqUser');
     this.userSrv.loggedUserData = undefined;

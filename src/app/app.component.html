@@ -15,15 +15,21 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <!-- Navigation Links -->
                 <ul class="navbar-nav me-auto">
-                    <li class="nav-item"><a class="nav-link" routerLink="/login"><i class="fas fa-home"></i> Home</a>
+                    <li class="nav-item"><a class="nav-link" routerLink="/home"><i class="fas fa-home"></i> Home</a>
                     </li>
+                    @if (userSrv.loggedUserData?.role == 'Customer') {
+                    <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-file-contract"></i>Create
+                            RFQs</a></li>
+                    }
+                    @else {
                     <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-file-contract"></i> RFQs</a></li>
+                    }
                     <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-industry"></i> Suppliers</a></li>
                     <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-handshake"></i> Contracts</a>
                     </li>
                 </ul>
 
-                <!-- Right Section: Register/Login or User Info -->
+                <!-- Right Navbar -->
                 <ul class="navbar-nav">
                     <!-- if User is logged In  -->
                     @if (userSrv.loggedUserData) {
@@ -31,18 +37,14 @@
                         {{userSrv.loggedUserData.userName}}
                     </li>
                     <li class="nav-item" (click)="onLogout()">
-                        <a class="btn btn-primary btn-custom mx-1" routerLink="/login"><i
-                                class="fas fa-user"></i> Logout</a>
+                        <a class="btn btn-primary btn-custom mx-1" routerLink="/login"><i class="fas fa-user"></i>
+                            Logout</a>
                     </li>
                     }
-                    @else {
+                    @else if(router.url !== '/login') {
                     <!-- If User is Not Logged In -->
                     <li class="nav-item">
-                        <a class="btn btn-outline-primary btn-custom mx-1" routerLink="/login"><i
-                                class="fas fa-user-plus"></i> Register</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="btn btn-primary btn-custom mx-1" routerLink="/login"><i
+                        <a class="btn btn-outline-primary btn-custom mx-1" routerLink="login"><i
                                 class="fas fa-sign-in-alt"></i> Login</a>
                     </li>
                     }
@@ -50,5 +52,7 @@
             </div>
         </div>
     </nav>
-    <router-outlet />
+    <div class="rest-part">
+        <router-outlet />
+    </div>
 </div>
